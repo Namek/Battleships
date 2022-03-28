@@ -22,7 +22,7 @@ static class TestHelpers {
   /// </summary>
   public static void AssertState(this OceanGrid ocean, string expectedGridAsText) {
     int i = 0;
-    foreach (char ch in expectedGridAsText.TrimEnd()) {
+    foreach (char ch in expectedGridAsText) {
       int row = i / ocean.Width;
       int col = i % ocean.Width;
 
@@ -37,7 +37,7 @@ static class TestHelpers {
           Assert.Equal(ocean.Width, col);
         }
       } else {
-        throw new ArgumentException($"the string should not contain the '{ch} character'");
+        throw new ArgumentException($"the string should not contain the '{ch}' character");
       }
     }
 
@@ -62,9 +62,16 @@ static class TestHelpers {
   /// </summary>
   public static void AssertState(this TargetGrid targetGrid, string expectedStateAsString) {
     int i = 0;
-    foreach (char ch in expectedStateAsString.TrimEnd()) {
+    foreach (char ch in expectedStateAsString) {
       int row = i / targetGrid.Width;
       int col = i % targetGrid.Width;
+      
+      if (char.IsWhiteSpace(ch)) {
+        if (col != 0) {
+          Assert.Equal(targetGrid.Width, col);
+        }
+        continue;
+      }
 
       var cell = targetGrid.GetState(row, col);
 
@@ -77,12 +84,8 @@ static class TestHelpers {
       } else if (ch == 'x') {
         Assert.Equal(CellViewState.Hit, cell);
         i += 1;
-      } else if (char.IsWhiteSpace(ch)) {
-        if (col != 0) {
-          Assert.Equal(targetGrid.Width, col);
-        }
-      } else {
-        throw new ArgumentException($"the string should not contain the '{ch} character'");
+      } else  {
+        throw new ArgumentException($"the string should not contain the '{ch}' character");
       }
     }
 

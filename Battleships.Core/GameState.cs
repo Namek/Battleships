@@ -28,7 +28,7 @@ public class GameState {
       OceanShootResult.Miss => ActionResult.Miss,
       OceanShootResult.Hit => ActionResult.Hit,
       OceanShootResult.Sink => ActionResult.Sink,
-      OceanShootResult.LastSink => ActionResult.GameOver,
+      OceanShootResult.LastSink => ActionResult.Win,
       _ => ActionResult.Miss
     };
   }
@@ -39,5 +39,5 @@ public enum ActionResult {
   Miss,
   Hit,
   Sink,
-  GameOver,
+  Win,
 }

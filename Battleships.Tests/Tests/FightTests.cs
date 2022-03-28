@@ -93,7 +93,7 @@ public class FightTests {
     Assert.Equal(ActionResult.Hit, state.Shoot(4, 3));
     Assert.Equal(ActionResult.Hit, state.Shoot(4, 4));
     Assert.Equal(ActionResult.Hit, state.Shoot(4, 5));
-    Assert.Equal(ActionResult.GameOver, state.Shoot(4, 6));
+    Assert.Equal(ActionResult.Win, state.Shoot(4, 6));
   }
 
   [Fact]

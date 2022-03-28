@@ -44,7 +44,7 @@ while (true) {
       Console.WriteLine($"{shootCount}. shoot {input}: ship sink!");
       Console.Write(state.TargetGrid.ToString());
       break;
-    case ActionResult.GameOver:
+    case ActionResult.Win:
       Console.WriteLine();
       Console.WriteLine($"Congratulations. You have destroyed all the enemy ships with {shootCount} shots.");
       Console.Write(state.TargetGrid.ToString());
