@@ -1,4 +1,8 @@
+using System.Collections.Immutable;
+using System.Drawing;
 using System.Text;
+using System.Transactions;
+using Microsoft.VisualBasic;
 
 namespace Battleships.Core;
 
@@ -92,6 +96,42 @@ public class OceanGrid {
     return true;
   }
 
+  /// <summary>
+  /// Place specified ships (by size and amount) in random positions.
+  /// Will not revert to the starting state on failure. Only the full ships will be placed then.
+  /// 
+  /// Note: The implementation of this function is very simple:
+  ///  1. with a smaller map or larger amount of ships the randomization will cause unpredictable execution time.
+  ///     However, it mitigates the issue with stopping after certain fixed amount of steps.
+  ///  2. does not solve the Knapsack problem
+  /// </summary>
+  /// <param name="seed">seed for number randomization</param>
+  /// <param name="sizeToCount">a pairs of a ship size (key) and amount of such ships (value)</param>
+  public bool PlaceRandomShips(int seed, Dictionary<int, int> sizeToCount) {
+    var rand = new Random(seed);
+
+    foreach (var (size, count) in sizeToCount.ToImmutableSortedDictionary()) {
+      for (int i = 0; i < count; i += 1) {
+        int tries = 0;
+        bool placementSuccess = false;
+        while (!placementSuccess && tries < 10) {
+          var dir = rand.Next(1) == 0 ? Direction.Horizontal : Direction.Vertical;
+          var startRow = rand.Next(dir == Direction.Horizontal ? Width - 1 - size : Width - 1);
+          var startCol = rand.Next(dir == Direction.Vertical ? Height - 1 - size : Height - 1);
+
+          placementSuccess = PlaceShip(size, startRow, startCol, dir);
+          tries += 1;
+        }
+
+        if (!placementSuccess) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
   private int? GetCellShipId(int row, int col) {
     int id = _grid[Width * row + col];
     return id == EMPTY_CELL_ID ? null : id;
@@ -99,6 +139,24 @@ public class OceanGrid {
 
   private void SetCellShipId(int row, int col, int? shipId) {
     _grid[Width * row + col] = shipId ?? EMPTY_CELL_ID;
+  }
+
+  public override bool Equals(object? obj) {
+    if (obj is not OceanGrid other) {
+      return false;
+    }
+
+    if (other.Width != this.Width || other.Height != this.Height || this._grid.Length != other._grid.Length) {
+      return false;
+    }
+
+    for (int i = 0; i < _grid.Length; i += 1) {
+      if (_grid[i] != other._grid[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   private string GetAsDebugString() {

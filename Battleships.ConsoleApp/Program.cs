@@ -6,9 +6,10 @@ const int SIZE_BATTLESHIP = 5;
 const int SIZE_DESTROYER = 4;
 
 var state = new GameState(BOARD_WIDTH, BOARD_HEIGHT);
-state.OpponentGrid.PlaceShip(SIZE_BATTLESHIP, 2, 2, Direction.Horizontal);
-state.OpponentGrid.PlaceShip(SIZE_DESTROYER, 3, 1, Direction.Horizontal);
-state.OpponentGrid.PlaceShip(SIZE_DESTROYER, 4, 2, Direction.Vertical);
+state.OpponentGrid.PlaceRandomShips(new Random().Next(),new Dictionary<int, int>() {
+  [SIZE_BATTLESHIP] = 1,
+  [SIZE_DESTROYER] = 2,
+});
 
 int shootCount = 0;
 while (true) {
