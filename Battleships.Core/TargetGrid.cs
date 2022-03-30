@@ -2,6 +2,7 @@ using System.Text;
 
 namespace Battleships.Core;
 
+[System.Diagnostics.DebuggerDisplay("{GetAsDebugString()}")]
 public class TargetGrid {
   public int Width { get; }
   public int Height { get; }
@@ -21,8 +22,8 @@ public class TargetGrid {
     this.Height = height;
     this._grid = new CellViewState[Width * Height];
   }
-  
-  public override string ToString() {
+
+  private string GetAsDebugString() {
     var sb = new StringBuilder();
 
     for (int i = 0, col = 0; i < _grid.Length; i += 1) {

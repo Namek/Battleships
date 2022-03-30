@@ -2,6 +2,7 @@ using System.Text;
 
 namespace Battleships.Core;
 
+[System.Diagnostics.DebuggerDisplay("{GetAsDebugString()}")]
 public class OceanGrid {
   public const int DEFAULT_WIDTH = 10;
   public const int DEFAULT_HEIGHT = 10;
@@ -23,9 +24,6 @@ public class OceanGrid {
     Width = width;
     Height = height;
     _grid = new int[width * height];
-  }
-
-  public OceanGrid() : this(DEFAULT_WIDTH, DEFAULT_HEIGHT) {
   }
 
   public OceanShootResult Shoot(int row, int col) {
@@ -103,8 +101,7 @@ public class OceanGrid {
     _grid[Width * row + col] = shipId ?? EMPTY_CELL_ID;
   }
 
-  // for debugging purposes
-  public override string ToString() {
+  private string GetAsDebugString() {
     var sb = new StringBuilder();
 
     for (int i = 0, col = 0; i < _grid.Length; i += 1) {
