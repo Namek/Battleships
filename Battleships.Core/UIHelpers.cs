@@ -9,6 +9,10 @@ public static class UIHelpers {
   /// <param name="maxHeight"></param>
   /// <returns></returns>
   public static (int, int)? ParsePosition(string input, int maxWidth, int maxHeight) {
+    if (input.Length == 0) {
+      return null;
+    }
+    
     int row = input[0] - 'A';
 
     if (row < 0 || row >= maxHeight) {

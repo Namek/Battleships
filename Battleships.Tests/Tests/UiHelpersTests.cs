@@ -21,4 +21,14 @@ public class UiHelpersTests {
     Assert.Null(UIHelpers.ParsePosition("K3", 10, 10));
     Assert.Null(UIHelpers.ParsePosition("X3", 10, 10));
   }
+
+  [Theory]
+  [InlineData("")]
+  [InlineData(";4")]
+  [InlineData("4;;")]
+  [InlineData("A'")]
+  [InlineData("///")]
+  public void ParseTargetPositionWithIncorrectValues(string input) {
+    Assert.Null(UIHelpers.ParsePosition(input, 10, 10));
+  }
 }
