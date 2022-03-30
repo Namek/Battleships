@@ -20,8 +20,8 @@ while (true) {
 
   var pos = UIHelpers.ParsePosition(input, state.TargetGrid.Width, state.TargetGrid.Height);
   if (pos is null) {
-    // TODO replace A1 and J10 by values calculated based on width/height 
-    Console.WriteLine("Incorrect position. Please provide a position between A1 and J10");
+    var (from, to) = UIHelpers.GetPositionBoundaries(state.TargetGrid.Width, state.TargetGrid.Height); 
+    Console.WriteLine($"Incorrect position. Please provide a position between {from} and {to}");
     continue;
   }
 
