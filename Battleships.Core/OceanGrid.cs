@@ -115,9 +115,9 @@ public class OceanGrid {
         int tries = 0;
         bool placementSuccess = false;
         while (!placementSuccess && tries < 10) {
-          var dir = rand.Next(1) == 0 ? Direction.Horizontal : Direction.Vertical;
-          var startRow = rand.Next(dir == Direction.Horizontal ? Width - 1 - size : Width - 1);
-          var startCol = rand.Next(dir == Direction.Vertical ? Height - 1 - size : Height - 1);
+          var dir = rand.Next(2) == 0 ? Direction.Horizontal : Direction.Vertical;
+          var startRow = rand.Next(dir == Direction.Horizontal ? Height - 1 : Height - 1 - size);
+          var startCol = rand.Next(dir == Direction.Horizontal ? Width - 1 - size : Width - 1);
 
           placementSuccess = PlaceShip(size, startRow, startCol, dir);
           tries += 1;
