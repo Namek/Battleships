@@ -5,7 +5,9 @@ A simplified version of the paper Battleships game:
 2. human player shoots them down by guessing ship positions
 3. when everything is shot down, the human player sees a congratulations message with the shot count. 
 
-In other words, the simplification means this is a one-sided game. The computer player does not shoot in response to the human player's moves. Also, the human player does not own ships. Shoots from the cosmos, probably. 
+In other words, the simplification means this is a one-sided game. The computer player does not shoot in response to the human player's moves. Also, the human player does not own ships. Shoots from the cosmos, probably.
+
+![Battleships](/docs/screenshot.png "How it looks like")
 
 ## Tech
 
