@@ -19,3 +19,11 @@ Tests are written mainly for the game logic, less for the "UI".
 ## Launch
 
 Can be started with `dotnet run` from the `Battleships.ConsoleApp` subfolder.
+
+
+## Potential improvements
+
+1. UI without scrolling so the radar could be visible all the time.
+2. Correct rendering after window gets resized.
+3. Ensure ship placement is as random as possible.
+4. A better algorithm for tight ship placement (the Knapsack problem).
